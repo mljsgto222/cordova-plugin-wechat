@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.webkit.URLUtil;
+import android.widget.Toast;
 
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
@@ -101,21 +102,19 @@ public class Wechat extends CordovaPlugin {
 
         instance = this;
 
-        initWXAPI();
-
         Log.d(TAG, "plugin initialized.");
     }
 
     protected void initWXAPI() {
         if (wxAPI == null) {
             String appId = getAppId();
-
             wxAPI = WXAPIFactory.createWXAPI(webView.getContext(), appId, true);
             wxAPI.registerApp(appId);
         }
     }
 
     public IWXAPI getWxAPI() {
+        initWXAPI();
         return wxAPI;
     }
 
@@ -392,6 +391,7 @@ public class Wechat extends CordovaPlugin {
     }
 
     protected IWXAPI getWXAPI() {
+        initWXAPI();
         return wxAPI;
     }
 
